@@ -1,20 +1,21 @@
 import React from 'react'
-import { View, Text, StyleSheet } from "react-native";
-import { Input, Button } from 'react-native-elements';
-
+import { View, StyleSheet, TextInput, Button } from "react-native";
+import { doLogin } from './LoginAction';
 
 export class LoginScreen extends React.Component {
+    state = {
+        loginId: '',
+        password: ''
+    }
     render() {
+        const { loginId, password } = this.state;
+
         return (
             <View style={styles.root}>
-                <View style={styles.input}>
-                    <Input placeholder='login id' />
-                </View>
-                <View style={styles.input}>
-                    <Input placeholder='password' />
-                </View>
+                <TextInput style={styles.input} placeholder='login id' value={loginId} onChangeText={e => this.setState({ loginId: e })} />
+                <TextInput style={styles.input} placeholder='password' value={password} onChangeText={e => this.setState({ password: e })} />
                 <View style={styles.button}>
-                    <Button title='Login' type='outline' />
+                    <Button title='Login' type='outline' onPress={(loginId, password) => doLogin(loginId, password)} />
                 </View>
             </View>
         )
@@ -23,11 +24,11 @@ export class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
     root: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 16,
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
     },
     input: {
         marginBottom: 16,
@@ -36,4 +37,4 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
     }
-  });
+});
