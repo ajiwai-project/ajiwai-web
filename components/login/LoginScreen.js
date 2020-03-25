@@ -5,20 +5,64 @@ import { doLogin } from './LoginAction';
 export class LoginScreen extends React.Component {
     state = {
         loginId: '',
-        password: ''
+        password: '',
+        errors: {}
     }
     render() {
-        const { loginId, password } = this.state;
+        const { loginId, password, errors } = this.state;
 
         return (
             <View style={styles.root}>
-                <TextInput style={styles.input} placeholder='login id' value={loginId} onChangeText={e => this.setState({ loginId: e })} />
-                <TextInput style={styles.input} placeholder='password' value={password} onChangeText={e => this.setState({ password: e })} />
+                <TextInput
+                    style={styles.input}
+                    placeholder='login id'
+                    value={loginId}
+                    onChangeText={e => this.setState({ loginId: e })}
+                />
+                {errors['loginId'] && <Text>{errors['loginId']}</Text>}
+                <TextInput
+                    style={styles.input}
+                    placeholder='password'
+                    value={password} o
+                    nChangeText={e => this.setState({ password: e })}
+                />
+                {errors['password'] && <Text>{errors['password']}</Text>}
+
                 <View style={styles.button}>
-                    <Button title='Login' type='outline' onPress={(loginId, password) => doLogin(loginId, password)} />
+                    <Button title='Login' type='outline' onPress={this.onClickLogin} />
                 </View>
             </View>
         )
+    }
+
+    validate = () => {
+        const { loginId, password, errors } = this.state;
+
+        if (loginId.trim().length === 0) {
+            errors['loginId'] = '入力してください';
+        }
+
+        if (password.trim().length === 0) {
+            errors['password'] = '入力してください';
+
+        }
+
+        this.setState({ errors: errors });
+        return Object.keys(errors).length === 0;
+    }
+
+    onClickLogin = () => {
+        if (!this.validate) {
+            return;
+        }
+
+        const { loginId, password } = this.state;
+        doLogin(loginId, password)
+            .then(res => {
+                this.props.navigation.navigate('Home');
+
+            });
+
     }
 }
 
