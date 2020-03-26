@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
 
 import { doLogin } from './LoginAction';
 import { TextField } from '../utils/TextField';
@@ -29,9 +29,9 @@ export class LoginScreen extends React.Component {
                     onChangeText={text => this.setState({ password: text })}
                     error={errors.password}
                 />
-                <Button 
-                    onPress={this.onClickLogin}
-                />
+                <Button onPress={this.onClickLogin}>
+                    ログイン
+                </Button>
             </View>
         )
     }
@@ -53,7 +53,7 @@ export class LoginScreen extends React.Component {
         return Object.keys(errors).length === 0;
     }
 
-    onClickLogin = () => {
+    onClickLogin = async () => {
         if (!this.validate()) {
             return;
         }

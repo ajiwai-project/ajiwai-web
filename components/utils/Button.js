@@ -10,7 +10,7 @@ export const Button = (props) => {
             style={styles.root}
             onPress={props.onPress}
         >
-            <Text style={styles.text}>LOGIN</Text>
+            <Text style={styles.text}>{props.children}</Text>
         </TouchableOpacity>
     )
 }
