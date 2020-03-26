@@ -1,7 +1,9 @@
 import React from 'react'
-import { Container, Content, Form, Item, Label, Input, Button, Text } from "native-base";
+import { View, StyleSheet } from 'react-native'
 
 import { doLogin } from './LoginAction';
+import { TextField } from '../utils/TextField';
+import { Button } from '../utils/Button';
 
 export class LoginScreen extends React.Component {
     state = {
@@ -9,43 +11,41 @@ export class LoginScreen extends React.Component {
         password: '',
         errors: {}
     }
+
     render() {
         const { loginId, password, errors } = this.state;
 
         return (
-            <Container>
-                <Content>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>ログインID</Label>
-                            <Input
-                                value={loginId}
-                                onChangeText={e => this.setState({ loginId: e })}
-                            />
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>パスワード</Label>
-                            <Input
-                                value={password}
-                                onChangeText={e => this.setState({ password: e })}
-                            />
-                        </Item>
-                        <Button title='Login' type='outline' onPress={this.onClickLogin} />
-                    </Form>
-                </Content>
-            </Container>
+            <View style={styles.root}>
+                <TextField
+                    label='ログインID'
+                    value={loginId}
+                    onChangeText={text => this.setState({ loginId: text })}
+                    error={errors.loginId}
+                />
+                <TextField
+                    label='パスワード'
+                    value={password}
+                    onChangeText={text => this.setState({ password: text })}
+                    error={errors.password}
+                />
+                <Button 
+                    onPress={this.onClickLogin}
+                />
+            </View>
         )
     }
 
     validate = () => {
-        const { loginId, password, errors } = this.state;
+        const { loginId, password } = this.state;
 
+        let errors = {}
         if (loginId.trim().length === 0) {
-            errors['loginId'] = '入力してください';
+            errors.loginId = '入力してください';
         }
 
         if (password.trim().length === 0) {
-            errors['password'] = '入力してください';
+            errors.password = '入力してください';
 
         }
 
@@ -54,16 +54,25 @@ export class LoginScreen extends React.Component {
     }
 
     onClickLogin = () => {
-        if (!this.validate) {
+        if (!this.validate()) {
             return;
         }
 
         const { loginId, password } = this.state;
         doLogin(loginId, password)
-            .then(res => {
+            .then(_ => {
                 this.props.navigation.navigate('Home');
-
             });
 
     }
 }
+
+const styles = StyleSheet.create({
+    root: {
+        height: '100%',
+        margin: 8,
+        display: 'flex',
+        justifyContent: 'center',
+    },
+
+});
