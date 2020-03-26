@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { Container, Content, Form, Item, Label, Input, Button, Text } from "native-base";
+
 import { doLogin } from './LoginAction';
 
 export class LoginScreen extends React.Component {
@@ -12,26 +13,27 @@ export class LoginScreen extends React.Component {
         const { loginId, password, errors } = this.state;
 
         return (
-            <View style={styles.root}>
-                <TextInput
-                    style={styles.input}
-                    placeholder='login id'
-                    value={loginId}
-                    onChangeText={e => this.setState({ loginId: e })}
-                />
-                {errors['loginId'] && <Text>{errors['loginId']}</Text>}
-                <TextInput
-                    style={styles.input}
-                    placeholder='password'
-                    value={password} o
-                    nChangeText={e => this.setState({ password: e })}
-                />
-                {errors['password'] && <Text>{errors['password']}</Text>}
-
-                <View style={styles.button}>
-                    <Button title='Login' type='outline' onPress={this.onClickLogin} />
-                </View>
-            </View>
+            <Container>
+                <Content>
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>ログインID</Label>
+                            <Input
+                                value={loginId}
+                                onChangeText={e => this.setState({ loginId: e })}
+                            />
+                        </Item>
+                        <Item floatingLabel>
+                            <Label>パスワード</Label>
+                            <Input
+                                value={password}
+                                onChangeText={e => this.setState({ password: e })}
+                            />
+                        </Item>
+                        <Button title='Login' type='outline' onPress={this.onClickLogin} />
+                    </Form>
+                </Content>
+            </Container>
         )
     }
 
@@ -65,20 +67,3 @@ export class LoginScreen extends React.Component {
 
     }
 }
-
-const styles = StyleSheet.create({
-    root: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 16,
-    },
-    input: {
-        marginBottom: 16,
-        width: '100%',
-    },
-    button: {
-        width: '100%',
-    }
-});
