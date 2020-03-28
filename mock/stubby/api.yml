@@ -8,3 +8,11 @@
     body: {
         "access_token":"xxxxxxxxxxxx", 
     }
+- request:
+    method: GET
+    url: ^/recommends$
+  response:
+    status: 200
+    headers: 
+        content-type: application/json
+    file: getRecommends.json

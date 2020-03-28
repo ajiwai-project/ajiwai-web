@@ -42,6 +42,5 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
     },
     cardHeader: {
-        lineHeight: 49
     }
 });
