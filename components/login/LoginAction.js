@@ -8,6 +8,6 @@ export const doLogin = (loginId, password) => {
             AsyncStorage.setItem('access_token', token);
         })
         .catch(_ => {
-
+            console.error('ログインできなかったときの何か')
         })
 }

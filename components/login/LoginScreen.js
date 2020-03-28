@@ -53,7 +53,7 @@ export class LoginScreen extends React.Component {
         return Object.keys(errors).length === 0;
     }
 
-    onClickLogin = async () => {
+    onClickLogin = () => {
         if (!this.validate()) {
             return;
         }
