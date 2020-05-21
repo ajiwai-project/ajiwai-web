@@ -8,3 +8,15 @@
     body: {
         "access_token":"xxxxxxxxxxxx", 
     }
+- request:
+    method: POST
+    url: ^/user/ajiwais$
+    headers:
+        authorization: "Bearer xxxxxxxxxxxx"
+  response:
+    status: 201
+    headers: 
+        content-type: application/json
+    body: {
+        "url":"/user/ajiwais/100"
+    }
