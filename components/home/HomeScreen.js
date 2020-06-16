@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from "react-native";
-import { ImagePicker, Permissions } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 import { Button } from '../utils/Button';
 
 export class HomeScreen extends React.Component {
