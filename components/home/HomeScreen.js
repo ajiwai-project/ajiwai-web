@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Button } from '../utils/Button';
@@ -20,6 +20,7 @@ export class HomeScreen extends React.Component {
 
         return (
             <View style={styles.root}>
+                {photo && <Image source={{uri: photo.uri}} style={{width: 200, height: 200}}/>}
                 <Button onPress={this.handleCameraRoll}>写真を撮る</Button>
                 <Text>ホーム画面だよ</Text>
             </View>
